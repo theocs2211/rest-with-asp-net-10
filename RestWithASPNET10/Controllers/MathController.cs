@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RestWithASPNET10.Service;
 
 namespace RestWithASPNET10.Controllers
 {
@@ -6,41 +7,78 @@ namespace RestWithASPNET10.Controllers
     [Route("[controller]")]
     public class MathController : ControllerBase
     {
-        [HttpGet("sum/{firstNumber}/{secondNumber}")]
 
-        public IActionResult Get(string firstNumber, string secondNumber)
-        {
-            if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
+
+        [HttpGet("soma/{firstNumber}/{secondNumber}")]
+        public IActionResult Soma(string firstNumber, string secondNumber)
+        {   
+            decimal? result = CalculatorService.Soma(firstNumber, secondNumber);
+
+            if (result == null)
             {
-                var sum = ConvertToDecimal(firstNumber) + ConvertToDecimal(secondNumber);
-
-                return Ok(sum);
+                return BadRequest("Invalid Input!");
             }
-            return BadRequest("Invalid Input!");
+            return Ok(result);
         }
 
-        private decimal ConvertToDecimal(string strNumber)
+        [HttpGet("subtracao/{firstNumber}/{secondNumber}")]
+        public IActionResult Subtracao(string firstNumber, string secondNumber)
         {
-            decimal decimalValue;
+            decimal? result = CalculatorService.Subtracao(firstNumber, secondNumber);
 
-            if (decimal.TryParse(strNumber, 
-                System.Globalization.NumberStyles.Any, 
-                System.Globalization.NumberFormatInfo.InvariantInfo, 
-                out decimalValue))
+            if (result == null)
             {
-                return decimalValue;
+                return BadRequest("Invalid Input!");
             }
-            return 0;
+            return Ok(result);
         }
 
-        private bool IsNumeric(string strNumber)
+        [HttpGet("multiplicacao/{firstNumber}/{secondNumber}")]
+        public IActionResult Multiplicacao(string firstNumber, string secondNumber)
         {
-            decimal decimalValue;
-            bool isNumber = decimal.TryParse(strNumber, 
-                System.Globalization.NumberStyles.Any, 
-                System.Globalization.NumberFormatInfo.InvariantInfo, 
-                out decimalValue);
-            return isNumber;
+            decimal? result = CalculatorService.Multiplicacao(firstNumber, secondNumber);
+
+            if (result == null)
+            {
+                return BadRequest("Invalid Input!");
+            }
+            return Ok(result);
+        }
+
+        [HttpGet("divisao/{firstNumber}/{secondNumber}")]
+        public IActionResult Divisao(string firstNumber, string secondNumber)
+        {
+            decimal? result = CalculatorService.Divisao(firstNumber, secondNumber);
+
+            if (result == null)
+            {
+                return BadRequest("Invalid Input!");
+            }
+            return Ok(result);
+        }
+
+        [HttpGet("media/{firstNumber}/{secondNumber}")]
+        public IActionResult Media(string firstNumber, string secondNumber)
+        {
+            decimal? result = CalculatorService.Media(firstNumber, secondNumber);
+
+            if (result == null)
+            {
+                return BadRequest("Invalid Input!");
+            }
+            return Ok(result);
+        }
+
+        [HttpGet("raizQuadrada/{number}")]
+        public IActionResult RaizQuadrada(string number)
+        {
+            decimal? result = CalculatorService.RaizQuadrada(number);
+
+            if (result == null)
+            {
+                return BadRequest("Invalid Input!");
+            }
+            return Ok(result);
         }
     }
 }
