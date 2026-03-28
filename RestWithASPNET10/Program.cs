@@ -1,4 +1,6 @@
 using RestWithASPNET10.Configurations;
+using RestWithASPNET10.Repositories;
+using RestWithASPNET10.Repositories.Implementations;
 using RestWithASPNET10.Services;
 using RestWithASPNET10.Services.Implementations;
 
@@ -9,8 +11,9 @@ builder.AddSerilogLogging();
 
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<IPersonService, PersonServiceImpl>();
 builder.Services.AddDatabaseConfiguration(builder.Configuration);
+builder.Services.AddScoped<IPersonService, PersonServiceImpl>();
+builder.Services.AddScoped<IPersonRepository, PersonRepositoryImpl>();
 
 var app = builder.Build();
 

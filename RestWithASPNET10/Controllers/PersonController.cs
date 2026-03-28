@@ -7,7 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 namespace RestWithASPNET10.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class PersonController : ControllerBase
     {
         private IPersonService _personService;
