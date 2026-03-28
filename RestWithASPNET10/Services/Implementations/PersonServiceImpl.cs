@@ -1,58 +1,56 @@
 ﻿using RestWithASPNET10.Models;
+using RestWithASPNET10.Models.Context;
 
 namespace RestWithASPNET10.Services.Implementations
 {
     public class PersonServiceImpl : IPersonService
     {
+        private MSSQLContext _context;
+
+        public PersonServiceImpl(MSSQLContext context)
+        {
+            _context = context;
+        }
+
         public Person FindById(long id)
         {
-            return new Person
-            {
-                Id = id,
-                FirstName = "Théo " + id,
-                LastName = "da Cruz de Souza",
-                Address = "Rua Marcilio Dias",
-                Gender = "Male"
-            };
+            return _context.Persons.Find(id);
         }
 
         public List<Person> FindAll()
         {
-            List<Person> list = new List<Person>();
-
-            list.Add(new Person
-            {
-                Id = new Random().Next(1, 1000),
-                FirstName = "Théo",
-                LastName = "da Cruz de Souza",
-                Address = "Rua Marcilio Dias",
-                Gender = "Male"
-            });
-            list.Add(new Person
-            {
-                Id = new Random().Next(1, 1000),
-                FirstName = "Daniel",
-                LastName = "Pires de Souza",
-                Address = "Rua Marcilio Dias",
-                Gender = "Male"
-            });
-
-            return list;
+            return _context.Persons.ToList();
         }
 
         public Person Create(Person person)
         {
+            _context.Persons.Add(person);
+            _context.SaveChanges();
             return person;
         }
 
         public Person Update(Person person)
         {
+            var existingPerson = _context.Persons.Find(person.Id);
+            if (existingPerson == null)
+            {
+                return null;
+            }
+
+            _context.Entry(existingPerson).CurrentValues.SetValues(person);
+            _context.SaveChanges();
             return person;
         }
 
         public void Delete(long id)
         {
-            //deletion logic
+            var existingPerson = _context.Persons.Find(id);
+            if (existingPerson == null)
+            {
+                return;
+            }
+            _context.Remove(existingPerson);
+            _context.SaveChanges();
         }
     }
 }
