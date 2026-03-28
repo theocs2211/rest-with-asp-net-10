@@ -6,7 +6,10 @@ namespace RestWithASPNET10.Utils
     {
         public static bool TryConvertToDecimal(string value, out decimal result)
         {
-            return decimal.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out result);
+            return decimal.TryParse(value, 
+                NumberStyles.Any, 
+                CultureInfo.InvariantCulture,
+                out result);
         }
     }
 }
