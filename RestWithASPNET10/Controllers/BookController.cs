@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RestWithASPNET10.Data.DTO;
-using RestWithASPNET10.Models;
 using RestWithASPNET10.Services;
 
 namespace RestWithASPNET10.Controllers

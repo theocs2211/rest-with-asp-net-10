@@ -1,4 +1,5 @@
-﻿using RestWithASPNET10.Data.Converter.Impl;
+﻿using Mapster;
+using RestWithASPNET10.Data.Converter.Impl;
 using RestWithASPNET10.Data.DTO;
 using RestWithASPNET10.Models;
 using RestWithASPNET10.Repositories;
@@ -18,26 +19,26 @@ namespace RestWithASPNET10.Services.Implementations
 
         public PersonDTO FindById(long id)
         {
-            return _converter.Parse(_repository.FindById(id));
+            return _repository.FindById(id).Adapt<PersonDTO>();
         }
 
         public List<PersonDTO> FindAll()
         {
-            return _converter.ParseList(_repository.FindAll());
+            return _repository.FindAll().Adapt<List<PersonDTO>>();
         }
 
         public PersonDTO Create(PersonDTO person)
         {
-            var entity = _converter.Parse(person);
+            var entity = person.Adapt<Person>();
             entity = _repository.Create(entity);
-            return _converter.Parse(entity);
+            return entity.Adapt<PersonDTO>();
         }
 
         public PersonDTO Update(PersonDTO person)
         {
-            var entity = _converter.Parse(person);
+            var entity = person.Adapt<Person>();
             entity = _repository.Update(entity);
-            return _converter.Parse(entity);
+            return entity.Adapt<PersonDTO>();
         }
 
         public void Delete(long id)
