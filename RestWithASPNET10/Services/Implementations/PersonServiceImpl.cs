@@ -1,37 +1,43 @@
-﻿using RestWithASPNET10.Models;
-using RestWithASPNET10.Models.Context;
+﻿using RestWithASPNET10.Data.Converter.Impl;
+using RestWithASPNET10.Data.DTO;
+using RestWithASPNET10.Models;
 using RestWithASPNET10.Repositories;
-using RestWithASPNET10.Repositories.Implementations;
 
 namespace RestWithASPNET10.Services.Implementations
 {
     public class PersonServiceImpl : IPersonService
     {
-        private readonly IPersonRepository _repository;
+        private IRepository<Person> _repository;
+        private readonly PersonConverter _converter;
 
-        public PersonServiceImpl(IPersonRepository repository)
+        public PersonServiceImpl(IRepository<Person> repository)
         {
             _repository = repository;
+            _converter = new PersonConverter();
         }
 
-        public Person FindById(long id)
+        public PersonDTO FindById(long id)
         {
-            return _repository.FindById(id);
+            return _converter.Parse(_repository.FindById(id));
         }
 
-        public List<Person> FindAll()
+        public List<PersonDTO> FindAll()
         {
-            return _repository.FindAll();
+            return _converter.ParseList(_repository.FindAll());
         }
 
-        public Person Create(Person person)
+        public PersonDTO Create(PersonDTO person)
         {
-            return _repository.Create(person);
+            var entity = _converter.Parse(person);
+            entity = _repository.Create(entity);
+            return _converter.Parse(entity);
         }
 
-        public Person Update(Person person)
+        public PersonDTO Update(PersonDTO person)
         {
-            return _repository.Update(person);
+            var entity = _converter.Parse(person);
+            entity = _repository.Update(entity);
+            return _converter.Parse(entity);
         }
 
         public void Delete(long id)

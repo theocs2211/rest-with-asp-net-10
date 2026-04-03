@@ -1,4 +1,5 @@
 using RestWithASPNET10.Configurations;
+using RestWithASPNET10.Models;
 using RestWithASPNET10.Repositories;
 using RestWithASPNET10.Repositories.Implementations;
 using RestWithASPNET10.Services;
@@ -13,10 +14,12 @@ builder.Services.AddControllers();
 
 builder.Services.AddDatabaseConfiguration(builder.Configuration);
 builder.Services.AddEvolveConfiguration(builder.Configuration, builder.Environment);
+
 builder.Services.AddScoped<IPersonService, PersonServiceImpl>();
-builder.Services.AddScoped<IPersonRepository, PersonRepositoryImpl>();
 builder.Services.AddScoped<IBookService, BookServiceImpl>();
-builder.Services.AddScoped<IBookRepository, BookRepositoryImpl>();
+
+builder.Services.AddScoped(typeof(IRepository<>), typeof (GenericRepository<>));
+
 
 var app = builder.Build();
 

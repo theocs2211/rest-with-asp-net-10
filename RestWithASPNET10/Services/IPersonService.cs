@@ -1,13 +1,13 @@
-﻿using RestWithASPNET10.Models;
+﻿using RestWithASPNET10.Data.DTO;
 
 namespace RestWithASPNET10.Services
 {
     public interface IPersonService
     {
-        Person Create(Person person);
-        Person Update(Person person);
+        PersonDTO Create(PersonDTO PersonDTO);
+        PersonDTO Update(PersonDTO PersonDTO);
         void Delete(long id);
-        Person FindById(long id);
-        List<Person> FindAll();
+        PersonDTO FindById(long id);
+        List<PersonDTO> FindAll();
     }
 }
