@@ -1,17 +1,17 @@
 ﻿using Mapster;
 using RestWithASPNET10.Data.Converter.Impl;
-using RestWithASPNET10.Data.DTO;
+using RestWithASPNET10.Data.DTO.V1;
 using RestWithASPNET10.Models;
 using RestWithASPNET10.Repositories;
 
 namespace RestWithASPNET10.Services.Implementations
 {
-    public class PersonServiceImpl : IPersonService
+    public class PersonServiceImplV1 : IPersonService
     {
         private IRepository<Person> _repository;
         private readonly PersonConverter _converter;
 
-        public PersonServiceImpl(IRepository<Person> repository)
+        public PersonServiceImplV1(IRepository<Person> repository)
         {
             _repository = repository;
             _converter = new PersonConverter();

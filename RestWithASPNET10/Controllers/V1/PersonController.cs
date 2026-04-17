@@ -1,13 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
-using RestWithASPNET10.Data.DTO;
-using RestWithASPNET10.Models;
+using RestWithASPNET10.Data.DTO.V1;
 using RestWithASPNET10.Services;
-using RestWithASPNET10.Services.Implementations;
-using System.Security.Cryptography.X509Certificates;
 
-namespace RestWithASPNET10.Controllers
+namespace RestWithASPNET10.Controllers.V1
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/v1")]
     [ApiController]
 
     public class PersonController : ControllerBase
@@ -54,6 +51,8 @@ namespace RestWithASPNET10.Controllers
                 return NotFound();
             }
             _logger.LogInformation($"Person with name {person.FirstName} Created Successfully");
+            Response.Headers.Append("X-API-Deprecated", "true");
+            Response.Headers.Append("X-API-Deprecation-Date", "2026-12-31");
             return Ok(createdPerson);
         }
 
