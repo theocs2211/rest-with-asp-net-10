@@ -20,6 +20,9 @@ namespace RestWithASPNET10.Controllers.V2
 
 
         [HttpPost]
+        [ProducesResponseType(200, Type = typeof(PersonDTO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Create([FromBody] PersonDTO person)
         {
             _logger.LogInformation($"Creating new person: {person.FirstName}");

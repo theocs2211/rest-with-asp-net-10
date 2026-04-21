@@ -20,6 +20,9 @@ namespace RestWithASPNET10.Controllers.V1
 
 
         [HttpGet]
+        [ProducesResponseType(200, Type = typeof(List<PersonDTO>))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult FindAll()
         {
             _logger.LogInformation("Fetching all persons");
@@ -27,6 +30,9 @@ namespace RestWithASPNET10.Controllers.V1
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(200, Type = typeof(PersonDTO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult FindById(int id)
         {
             _logger.LogInformation($"Fetching person with id {id}");
@@ -41,6 +47,9 @@ namespace RestWithASPNET10.Controllers.V1
         }
 
         [HttpPost]
+        [ProducesResponseType(200, Type = typeof(PersonDTO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Create([FromBody] PersonDTO person)
         {
             _logger.LogInformation($"Creating new person: {person.FirstName}");
@@ -57,6 +66,9 @@ namespace RestWithASPNET10.Controllers.V1
         }
 
         [HttpPut]
+        [ProducesResponseType(200, Type = typeof(PersonDTO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Update([FromBody] PersonDTO person)
         {
             _logger.LogInformation($"Updating person with id {person.Id}");
@@ -71,6 +83,7 @@ namespace RestWithASPNET10.Controllers.V1
         }
             
         [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
         public IActionResult Delete(long id)
         {
             _logger.LogInformation($"Deleting person with id {id}");
